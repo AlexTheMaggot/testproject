@@ -5,14 +5,30 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
+from .models import Product
 
 
 def index(request):
-    if request.user.is_authenticated:
-        template = 'mainapp/index.html'
-        return render(request, template)
+    if request.method == 'GET':
+        if 'search' in request.GET:
+            products = Product.objects.filter(name__contains=request.GET['search'])
+        else:
+            products = Product.objects.all()
+        if request.user.is_authenticated:
+            template = 'mainapp/index.html'
+            context = {
+                'products': products
+            }
+            return render(request, template, context)
+        else:
+            return redirect('mainapp:login', permanent=True)
+    elif request.method == 'POST':
+        product = Product.objects.get(id=request.POST['id'])
+        product.quantity = request.POST['quantity']
+        product.save()
+        return redirect('mainapp:index', permanent=True)
     else:
-        return redirect('mainapp:login', permanent=True)
+        return HttpResponseForbidden()
 
 
 def login(request):
