@@ -26,21 +26,41 @@ body {
   }
 }
 
-.logout {
+.header-block {
   background: @white;
   border-radius: 10px;
   height: 70px;
+}
+
+.logout {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .title {
-  background: @white;
-  border-radius: 10px;
   padding: 10px 0;
-  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.product-list {
+  background: @white;
+  border-radius: 10px;
+  margin-top: 30px;
+  &__button {
+    margin-bottom: 4px;
+  }
+}
+
+.search {
+  margin-top: 30px;
+  &__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+  }
 }
