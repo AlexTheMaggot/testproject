@@ -1,0 +1,46 @@
+@white: #FFFFFF;
+@gray_dark: #333333;
+
+body {
+  background: @gray_dark;
+}
+
+.content {
+  transition: all 0.3s;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.auth {
+  background: @white;
+  padding: 20px 100px;
+  border-radius: 10px;
+  &__background {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: @gray_dark;
+  }
+}
+
+.logout {
+  background: @white;
+  border-radius: 10px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  background: @white;
+  border-radius: 10px;
+  padding: 10px 0;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
