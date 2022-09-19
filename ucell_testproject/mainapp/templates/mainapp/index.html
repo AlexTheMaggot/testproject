@@ -1,11 +1,80 @@
 {% extends 'wrapper.html' %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-    <header></header>
-    <div class="container-fluid">
+    <div class="container-fluid content invisible">
+        <header>
+            <div class="row pt-3">
+                <div class="col-12 col-lg-2">
+                    <div class="header-block"></div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="title header-block">
+                        <h1>Список товаров</h1>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-2 text-center">
+                    <div class="logout header-block">
+                        <a href="{% url 'mainapp:logout' %}" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
         <div class="row">
             <div class="col-12">
-                <h1>Sanple Content</h1>
+                <div class="search header-block">
+                    <form action="" method="GET" class="search__form">
+                        <input type="text" name="search" class="form-control w-75" placeholder="Поиск...">
+                        <input type="submit" class="btn btn-success" value="Найти">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="product-list">
+                    <table class="table">
+                        <col style="width: 10%">
+                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Цена</th>
+                                <th>Цвет</th>
+                                <th>Кол-во</th>
+                                <th>Изменить кол-во</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if products.count > 0 %}
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{ product.id }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.price }}</td>
+                                        <td>{{ product.color }}</td>
+                                        <td>{{ product.quantity }}</td>
+                                        <td>
+                                            <form action="" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ product.id }}">
+                                                <input type="number" name="quantity" class="form-control w-50 d-inline-block">
+                                                <input type="submit" class="btn btn-primary d-inline-block product-list__button" value="Ок">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6" style="text-align: center">Нет данных</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
